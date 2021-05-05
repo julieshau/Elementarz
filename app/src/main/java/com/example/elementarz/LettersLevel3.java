@@ -2,7 +2,6 @@ package com.example.elementarz;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -31,7 +30,7 @@ public class LettersLevel3 extends AppCompatActivity {
     public boolean leftCorrect;
     public int count = 0;
 
-    Array array = new Array();
+    Letters array = new Letters();
     Random random = new Random();
 
     @Override
@@ -139,23 +138,23 @@ public class LettersLevel3 extends AppCompatActivity {
         Animation a = AnimationUtils.loadAnimation(LettersLevel3.this, R.anim.alpha);
 
         //logic is here
-        num = random.nextInt(7); //todo change number
+        num = random.nextInt(array.images.length);
         text_temp.setText(array.answer[num]);//todo remove
         leftCorrect = random.nextBoolean();
         if (leftCorrect){
             numLeft = num;
             do {
-                numRight = random.nextInt(7);
+                numRight = random.nextInt(array.images.length);
             } while (numLeft == numRight);
         } else {
             numRight = num;
             do {
-                numLeft = random.nextInt(7);
+                numLeft = random.nextInt(array.images.length);
             } while (numLeft == numRight);
         }
 
-        img_left.setImageResource(array.images1[numLeft]);
-        img_right.setImageResource(array.images1[numRight]);
+        img_left.setImageResource(array.images[numLeft]);
+        img_right.setImageResource(array.images[numRight]);
 
         //click on left image
         img_left.setOnTouchListener(new View.OnTouchListener() {
@@ -170,11 +169,11 @@ public class LettersLevel3 extends AppCompatActivity {
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP){
                     if (numLeft == num){ //right answer
-                        if (count < 7){
+                        if (count < progress.length){
                             count++;
                         }
                         //coloring progress
-                        for (int i = 0; i < 7; i++){ //todo change cycles
+                        for (int i = 0; i < progress.length; i++){ //todo change cycles
                             TextView tv = findViewById(progress[i]);
                             tv.setBackgroundResource(R.drawable.style_points);
                         }
@@ -187,7 +186,7 @@ public class LettersLevel3 extends AppCompatActivity {
                             count--;
                         }
                         //coloring progress
-                        for (int i = 0; i < 6; i++){ //todo change cycles
+                        for (int i = 0; i < progress.length - 1; i++){ //todo change cycles
                             TextView tv = findViewById(progress[i]);
                             tv.setBackgroundResource(R.drawable.style_points);
                         }
@@ -196,28 +195,28 @@ public class LettersLevel3 extends AppCompatActivity {
                             tv.setBackgroundResource(R.drawable.style_points_green);
                         }
                     }
-                    if (count == 7){
+                    if (count == progress.length){
                         //exit level
                     }
                     else {
-                        num = random.nextInt(7); //todo change number
+                        num = random.nextInt(array.images.length);
                         text_temp.setText(array.answer[num]);//todo remove
                         leftCorrect = random.nextBoolean();
                         if (leftCorrect){
                             numLeft = num;
                             do {
-                                numRight = random.nextInt(7);
+                                numRight = random.nextInt(array.images.length);
                             } while (numLeft == numRight);
                         } else {
                             numRight = num;
                             do {
-                                numLeft = random.nextInt(7);
+                                numLeft = random.nextInt(array.images.length);
                             } while (numLeft == numRight);
                         }
 
-                        img_left.setImageResource(array.images1[numLeft]);
+                        img_left.setImageResource(array.images[numLeft]);
                         img_left.startAnimation(a);
-                        img_right.setImageResource(array.images1[numRight]);
+                        img_right.setImageResource(array.images[numRight]);
                         img_right.startAnimation(a);
                         img_right.setEnabled(true);
                     }
@@ -239,11 +238,11 @@ public class LettersLevel3 extends AppCompatActivity {
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP){
                     if (numRight == num){ //right answer
-                        if (count < 7){
+                        if (count < progress.length){
                             count++;
                         }
                         //coloring progress
-                        for (int i = 0; i < 7; i++){ //todo change cycles
+                        for (int i = 0; i < progress.length; i++){ //todo change cycles
                             TextView tv = findViewById(progress[i]);
                             tv.setBackgroundResource(R.drawable.style_points);
                         }
@@ -256,7 +255,7 @@ public class LettersLevel3 extends AppCompatActivity {
                             count--;
                         }
                         //coloring progress
-                        for (int i = 0; i < 6; i++){ //todo change cycles
+                        for (int i = 0; i < progress.length - 1; i++){ //todo change cycles
                             TextView tv = findViewById(progress[i]);
                             tv.setBackgroundResource(R.drawable.style_points);
                         }
@@ -265,28 +264,28 @@ public class LettersLevel3 extends AppCompatActivity {
                             tv.setBackgroundResource(R.drawable.style_points_green);
                         }
                     }
-                    if (count == 7){
+                    if (count == progress.length){
                         //exit level
                     }
                     else {
-                        num = random.nextInt(7); //todo change number
+                        num = random.nextInt(array.images.length);
                         text_temp.setText(array.answer[num]);//todo remove
                         leftCorrect = random.nextBoolean();
                         if (leftCorrect){
                             numLeft = num;
                             do {
-                                numRight = random.nextInt(7);
+                                numRight = random.nextInt(array.images.length);
                             } while (numLeft == numRight);
                         } else {
                             numRight = num;
                             do {
-                                numLeft = random.nextInt(7);
+                                numLeft = random.nextInt(array.images.length);
                             } while (numLeft == numRight);
                         }
 
-                        img_left.setImageResource(array.images1[numLeft]);
+                        img_left.setImageResource(array.images[numLeft]);
                         img_left.startAnimation(a);
-                        img_right.setImageResource(array.images1[numRight]);
+                        img_right.setImageResource(array.images[numRight]);
                         img_right.startAnimation(a);
                         img_left.setEnabled(true);
                     }
