@@ -63,7 +63,7 @@ public class LettersLevel1 extends AppCompatActivity {
         TextView buttonClose = (TextView)dialog.findViewById(R.id.btnclose);
         buttonClose.setOnClickListener(v -> {
             try {
-                Intent intent = new Intent(LettersLevel1.this, GameLevels.class);
+                Intent intent = new Intent(LettersLevel1.this, LettersGameLevels.class);
                 startActivity(intent);
                 finish();
             }catch (Exception e){
@@ -93,7 +93,7 @@ public class LettersLevel1 extends AppCompatActivity {
         TextView buttonCloseEnd = (TextView)dialogEnd.findViewById(R.id.btnclose);
         buttonCloseEnd.setOnClickListener(v -> {
             try {
-                Intent intent = new Intent(LettersLevel1.this, GameLevels.class);
+                Intent intent = new Intent(LettersLevel1.this, LettersGameLevels.class);
                 startActivity(intent);
                 finish();
             }catch (Exception e){
@@ -121,7 +121,7 @@ public class LettersLevel1 extends AppCompatActivity {
         Button buttonBack = (Button)findViewById(R.id.button_back);
         buttonBack.setOnClickListener(v -> {
             try {
-                Intent intent = new Intent(LettersLevel1.this, GameLevels.class);
+                Intent intent = new Intent(LettersLevel1.this, LettersGameLevels.class);
                 startActivity(intent);
                 finish();
             }catch (Exception e){
@@ -316,7 +316,7 @@ public class LettersLevel1 extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         try {
-            Intent intent = new Intent(LettersLevel1.this, GameLevels.class);
+            Intent intent = new Intent(LettersLevel1.this, LettersGameLevels.class);
             startActivity(intent);
             finish();
         }catch (Exception e){

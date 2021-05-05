@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GameLevels"
+            android:name=".LettersGameLevels"
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

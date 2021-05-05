@@ -3,7 +3,6 @@ package com.example.elementarz;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GameLevels extends AppCompatActivity {
+public class LettersGameLevels extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,7 @@ public class GameLevels extends AppCompatActivity {
         Button buttonBack = (Button)findViewById(R.id.button_back);
         buttonBack.setOnClickListener(v -> {
             try {
-                Intent intent = new Intent(GameLevels.this, MainActivity.class);
+                Intent intent = new Intent(LettersGameLevels.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }catch (Exception e){
@@ -40,7 +39,7 @@ public class GameLevels extends AppCompatActivity {
         textView1.setOnClickListener(v -> {
             try {
                 if (level <=1) {
-                    Intent intent = new Intent(GameLevels.this, LettersLevel1.class);
+                    Intent intent = new Intent(LettersGameLevels.this, LettersLevel1.class);
                     startActivity(intent);
                     finish();
                 }
@@ -54,7 +53,7 @@ public class GameLevels extends AppCompatActivity {
         textView2.setOnClickListener(v -> {
             try {
                 if (level <= 2) {
-                    Intent intent = new Intent(GameLevels.this, LettersLevel2.class);
+                    Intent intent = new Intent(LettersGameLevels.this, LettersLevel2.class);
                     startActivity(intent);
                     finish();
                 }
@@ -90,7 +89,7 @@ public class GameLevels extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         try {
-            Intent intent = new Intent(GameLevels.this, MainActivity.class);
+            Intent intent = new Intent(LettersGameLevels.this, MainActivity.class);
             startActivity(intent);
             finish();
         }catch (Exception e){
