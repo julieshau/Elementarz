@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Elementarz</string>
+    <string name="start">Start</string>
+    <string name="back">Powrót</string>
+    <string name="level">Poziom:</string>
+    <string name="level1">Poziom:1</string>
+    <string name="textcontinue">Dalej</string>
+    <string name="wow">Super!</string>
+</resources>
