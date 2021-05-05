@@ -52,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(MainActivity.this, LettersGameLevels.class);
                 }
                 else{//nauka cyferek
-                    intent = new Intent(MainActivity.this, LettersLevel1.class);//todo change
+                    intent = new Intent(MainActivity.this, NumbersGame.class);//todo change
+                    intent.putExtra("image_name", numbersGameImages[0]);
                 }
                 startActivity(intent);
                 finish();
