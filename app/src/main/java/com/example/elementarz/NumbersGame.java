@@ -62,6 +62,8 @@ public class NumbersGame extends AppCompatActivity {
         dialogEnd = new Dialog(this);
         dialogEnd.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogEnd.setContentView(R.layout.previewdialogwin);
+        Button buttonContinueEnd = (Button)dialogEnd.findViewById(R.id.btncontinue);
+        buttonContinueEnd.setText(R.string.textend);
         dialogEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogEnd.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT);
@@ -80,7 +82,6 @@ public class NumbersGame extends AppCompatActivity {
         });
 
         //button continue
-        Button buttonContinueEnd = (Button)dialogEnd.findViewById(R.id.btncontinue);
         buttonContinueEnd.setOnClickListener(v -> {
             try {
                 Intent intent_cont = new Intent(NumbersGame.this, MainActivity.class);
@@ -95,9 +96,9 @@ public class NumbersGame extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        if(current == 10){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+        if(current == 9){
+            current = 0;
+            dialogEnd.show();
         }
         super.onStart();
         // rozmieszczam obrazki z lesson[current][j] (opcje)
