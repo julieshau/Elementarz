@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
             return;
         } else {
-            backToast = Toast.makeText(getBaseContext(), "Kliknij ponownie, aby wyjść", Toast.LENGTH_SHORT);
+            backToast = Toast.makeText(getBaseContext(), R.string.exit_text, Toast.LENGTH_SHORT);
             backToast.show();
         }
 

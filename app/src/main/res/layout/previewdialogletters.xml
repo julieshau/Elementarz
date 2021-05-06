@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:id="@+id/textdescription"
-            android:text="@string/dialog_text"
+            android:text="@string/dialog_letters_text"
             android:layout_weight="30"
             android:textSize="30sp"/>
         <Button

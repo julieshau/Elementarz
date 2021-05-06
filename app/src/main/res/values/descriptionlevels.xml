@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_text">Bla bla bla.Some text here</string>
+    <string name="dialog_letters_text">Nauka literek.Kliknij na literę, którą usłyszysz</string>
 </resources>
