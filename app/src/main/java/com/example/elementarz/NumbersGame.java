@@ -58,6 +58,36 @@ public class NumbersGame extends AppCompatActivity {
             }
         }
 
+        //dialog window
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.previewdialognumbers);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
+        //dialog close
+        TextView buttonClose = (TextView)dialog.findViewById(R.id.btnclose);
+        buttonClose.setOnClickListener(v -> {
+            try {
+                Intent intent_cl = new Intent(NumbersGame.this, MainActivity.class);
+                startActivity(intent_cl);
+                finish();
+            }catch (Exception e){
+
+            }
+            dialog.dismiss();
+        });
+
+        //button continue
+        Button buttonContinue = (Button)dialog.findViewById(R.id.btncontinue);
+        buttonContinue.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        if (current == 0){
+            dialog.show();
+        }
+
+        //______________________________
+
         //win dialog window
         dialogEnd = new Dialog(this);
         dialogEnd.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -116,7 +146,7 @@ public class NumbersGame extends AppCompatActivity {
                 options.get(i).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "DOBRZE", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.good, Toast.LENGTH_SHORT).show();
                         current++;
                         startActivity(intent);
                     }
@@ -125,7 +155,7 @@ public class NumbersGame extends AppCompatActivity {
                 options.get(i).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "ŹLE", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.bad, Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                     }
                 });
@@ -179,6 +209,18 @@ public class NumbersGame extends AppCompatActivity {
                 helper.get(6).setVisibility(View.GONE);
             case 8:
                 helper.get(6).setVisibility(View.GONE);
+
+        }
+    }
+
+    //system button back
+    @Override
+    public void onBackPressed(){
+        try {
+            Intent intent = new Intent(NumbersGame.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }catch (Exception e){
 
         }
     }

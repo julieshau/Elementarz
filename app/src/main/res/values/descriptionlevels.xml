@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_letters_text">Nauka literek.Kliknij na literę, którą usłyszysz</string>
+    <string name="dialog_letters_text">Nauka literek. Kliknij na literę, którą usłyszysz</string>
+    <string name="dialog_numbers_text">Nauka cyferek. Policz zwierzęta na ekranie</string>
 </resources>
