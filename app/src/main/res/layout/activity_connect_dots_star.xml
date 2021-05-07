@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/star_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConnectDotsStar">
+
+    <ImageView
+        android:id="@+id/main_background2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_background" />
+
+    <ImageButton
+        android:id="@+id/btn_star1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/roundbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.309"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.385" />
+
+    <ImageButton
+        android:id="@+id/btn_star2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/roundbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.289"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.548" />
+
+    <ImageButton
+        android:id="@+id/btn_star3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/roundbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.475" />
+
+    <ImageButton
+        android:id="@+id/btn_star4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/roundbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.741"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55" />
+
+    <ImageButton
+        android:id="@+id/btn_star5"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/roundbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.153"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.248" />
+
+    <ImageButton
+        android:id="@+id/btn_star6"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/roundbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.667"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.384" />
+
+    <ImageButton
+        android:id="@+id/btn_star7"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/roundbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.867"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <ImageButton
+        android:id="@+id/btn_star8"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/roundbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.398"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.265" />
+
+    <ImageButton
+        android:id="@+id/btn_star9"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/roundbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.598"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.264" />
+
+    <ImageButton
+        android:id="@+id/btn_star10"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/roundbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.104" />
+
+    <com.example.elementarz.CanvasView
+        android:id="@+id/canvas_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#FFFFFF"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
