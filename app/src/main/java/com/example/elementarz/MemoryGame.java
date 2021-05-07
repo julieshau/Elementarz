@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -132,7 +133,6 @@ public class MemoryGame extends AppCompatActivity {
         temp.toArray(images);
 
         for (int i = 0; i < images.length; i++){
-            //buttons[i].setBackgroundResource(R.drawable.duck);
             buttons[i].setText("cardBack");
             buttons[i].setTextSize(0.0F);
             int finalI = i;
@@ -144,11 +144,6 @@ public class MemoryGame extends AppCompatActivity {
                         lastClicked = finalI;
                     }
                     clicked++;
-                }
-                else if (buttons[finalI].getText() != "cardBack"){
-                    buttons[finalI].setBackgroundResource(R.drawable.cardback);
-                    buttons[finalI].setText("cardBack");
-                    clicked--;
                 }
                 if (clicked == 2){
                     turnOver = true;
@@ -167,6 +162,16 @@ public class MemoryGame extends AppCompatActivity {
                     else{
                         MediaPlayer mediaplayer = MediaPlayer.create(MemoryGame.this, R.raw.zle_1);
                         mediaplayer.start();
+                        Handler handler = new Handler();
+                        handler.postDelayed(() -> {
+                            buttons[finalI].setBackgroundResource(R.drawable.cardback);
+                            buttons[finalI].setText("cardBack");
+                            buttons[lastClicked].setBackgroundResource(R.drawable.cardback);
+                            buttons[lastClicked].setText("cardBack");
+                            lastClicked = -1;
+                            clicked = 0;
+                            turnOver = false;
+                        }, 1000);
                     }
                 }
                 else if (clicked == 0){

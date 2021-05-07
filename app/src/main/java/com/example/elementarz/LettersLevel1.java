@@ -177,7 +177,7 @@ public class LettersLevel1 extends AppCompatActivity {
                         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel1.this, R.raw.dobrze_1);
                         mediaplayer.start();
                         //coloring progress
-                        for (int i = 0; i < progress.length; i++){ //todo change cycles
+                        for (int i = 0; i < progress.length; i++){
                             TextView tv = findViewById(progress[i]);
                             tv.setBackgroundResource(R.drawable.style_points);
                         }
@@ -192,7 +192,7 @@ public class LettersLevel1 extends AppCompatActivity {
                         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel1.this, R.raw.zle_1);
                         mediaplayer.start();
                         //coloring progress
-                        for (int i = 0; i < progress.length - 1; i++){ //todo change cycles
+                        for (int i = 0; i < progress.length - 1; i++){
                             TextView tv = findViewById(progress[i]);
                             tv.setBackgroundResource(R.drawable.style_points);
                         }
@@ -259,7 +259,7 @@ public class LettersLevel1 extends AppCompatActivity {
                         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel1.this, R.raw.dobrze_1);
                         mediaplayer.start();
                         //coloring progress
-                        for (int i = 0; i < progress.length; i++){ //todo change cycles
+                        for (int i = 0; i < progress.length; i++){
                             TextView tv = findViewById(progress[i]);
                             tv.setBackgroundResource(R.drawable.style_points);
                         }
@@ -274,7 +274,7 @@ public class LettersLevel1 extends AppCompatActivity {
                         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel1.this, R.raw.zle_1);
                         mediaplayer.start();
                         //coloring progress
-                        for (int i = 0; i < progress.length - 1; i++){ //todo change cycles
+                        for (int i = 0; i < progress.length - 1; i++){
                             TextView tv = findViewById(progress[i]);
                             tv.setBackgroundResource(R.drawable.style_points);
                         }
