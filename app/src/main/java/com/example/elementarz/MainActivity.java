@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Window;
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(MainActivity.this, NumbersGame.class);//todo change
                     intent.putExtra("image_name", numbersGameImages[0]);
                 }
+                MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.przejscie_1);
+                mediaPlayer.start();
                 startActivity(intent);
                 finish();
             }catch (Exception e){
@@ -92,6 +96,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onPageSelected(int position) {
             addDotsIndicator(position);
+            MediaPlayer mediaPlayer;
+            if(position > mCurrentPage) {
+                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.dzwiek_1);
+            } else{
+                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.dzwiek_2);
+            }
+            mediaPlayer.start();
             mCurrentPage = position;
         }
 
