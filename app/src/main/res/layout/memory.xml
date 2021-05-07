@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_background"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/mem_card1"
+        android:layout_marginTop="160dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/cardback"
+        app:backgroundTint="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/mem_card2"
+        android:layout_marginTop="160dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toEndOf="@+id/mem_card1"
+        app:layout_constraintEnd_toStartOf="@+id/mem_card3"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/cardback"
+        app:backgroundTint="@null"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/mem_card3"
+        android:layout_marginTop="160dp"
+        app:backgroundTint="@null"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/cardback"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/mem_card4"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/cardback"
+        app:backgroundTint="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mem_card1"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/mem_card5"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/cardback"
+        app:backgroundTint="@null"
+        app:layout_constraintTop_toBottomOf="@+id/mem_card2"
+        app:layout_constraintStart_toEndOf="@+id/mem_card4"
+        app:layout_constraintEnd_toStartOf="@+id/mem_card6"
+        tools:ignore="MissingConstraints"/>
+
+    <Button
+        android:id="@+id/mem_card6"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/cardback"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mem_card3"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/mem_card7"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/cardback"
+        app:backgroundTint="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mem_card4"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/mem_card8"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/cardback"
+        app:backgroundTint="@null"
+        app:layout_constraintTop_toBottomOf="@+id/mem_card5"
+        app:layout_constraintStart_toEndOf="@+id/mem_card7"
+        app:layout_constraintEnd_toStartOf="@+id/mem_card9"
+        tools:ignore="MissingConstraints"/>
+
+    <Button
+        android:id="@+id/mem_card9"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/cardback"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mem_card6"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/mem_card10"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/cardback"
+        app:backgroundTint="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mem_card7"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/mem_card11"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/cardback"
+        app:backgroundTint="@null"
+        app:layout_constraintTop_toBottomOf="@+id/mem_card8"
+        app:layout_constraintStart_toEndOf="@+id/mem_card10"
+        app:layout_constraintEnd_toStartOf="@+id/mem_card12"
+        tools:ignore="MissingConstraints"/>
+
+    <Button
+        android:id="@+id/mem_card12"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/cardback"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mem_card9"
+        tools:ignore="MissingConstraints" />
+</androidx.constraintlayout.widget.ConstraintLayout>

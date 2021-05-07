@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int gameAmount = 2;
+    private final int gameAmount = 3;
     private long backPressedTime;
     private Toast backToast;
     private ViewPager mSlideViewPager;
@@ -51,9 +51,12 @@ public class MainActivity extends AppCompatActivity {
                 if (mCurrentPage == 0){ //nauka literek
                     intent = new Intent(MainActivity.this, LettersGameLevels.class);
                 }
-                else{//nauka cyferek
-                    intent = new Intent(MainActivity.this, NumbersGame.class);//todo change
+                else if (mCurrentPage == 1){//nauka cyferek
+                    intent = new Intent(MainActivity.this, NumbersGame.class);
                     intent.putExtra("image_name", numbersGameImages[0]);
+                }
+                else{//memory
+                    intent = new Intent(MainActivity.this, MemoryGame.class);
                 }
                 startActivity(intent);
                 finish();
