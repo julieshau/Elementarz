@@ -2,8 +2,12 @@
     <string name="app_name">Elementarz</string>
     <string name="start">Start</string>
     <string name="back">Powrót</string>
-    <string name="level">Poziom:</string>
-    <string name="level1">Poziom:1</string>
+    <string name="level">Etap:</string>
+    <string name="level1">Etap:1</string>
     <string name="textcontinue">Dalej</string>
+    <string name="textend">Zakończ</string>
     <string name="wow">Super!</string>
+    <string name="good">DOBRZE</string>
+    <string name="bad">ŹLE</string>
+    <string name="exit_text">Kliknij ponownie, aby wyjść</string>
 </resources>

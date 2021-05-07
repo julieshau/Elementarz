@@ -58,10 +58,42 @@ public class NumbersGame extends AppCompatActivity {
             }
         }
 
+        //dialog window
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.previewdialognumbers);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
+        //dialog close
+        TextView buttonClose = (TextView)dialog.findViewById(R.id.btnclose);
+        buttonClose.setOnClickListener(v -> {
+            try {
+                Intent intent_cl = new Intent(NumbersGame.this, MainActivity.class);
+                startActivity(intent_cl);
+                finish();
+            }catch (Exception e){
+
+            }
+            dialog.dismiss();
+        });
+
+        //button continue
+        Button buttonContinue = (Button)dialog.findViewById(R.id.btncontinue);
+        buttonContinue.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        if (current == 0){
+            dialog.show();
+        }
+
+        //______________________________
+
         //win dialog window
         dialogEnd = new Dialog(this);
         dialogEnd.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogEnd.setContentView(R.layout.previewdialogwin);
+        Button buttonContinueEnd = (Button)dialogEnd.findViewById(R.id.btncontinue);
+        buttonContinueEnd.setText(R.string.textend);
         dialogEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogEnd.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT);
@@ -80,7 +112,6 @@ public class NumbersGame extends AppCompatActivity {
         });
 
         //button continue
-        Button buttonContinueEnd = (Button)dialogEnd.findViewById(R.id.btncontinue);
         buttonContinueEnd.setOnClickListener(v -> {
             try {
                 Intent intent_cont = new Intent(NumbersGame.this, MainActivity.class);
@@ -95,9 +126,9 @@ public class NumbersGame extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        if(current == 10){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+        if(current == 9){
+            current = 0;
+            dialogEnd.show();
         }
         super.onStart();
         // rozmieszczam obrazki z lesson[current][j] (opcje)
@@ -182,6 +213,18 @@ public class NumbersGame extends AppCompatActivity {
                 helper.get(6).setVisibility(View.GONE);
             case 8:
                 helper.get(6).setVisibility(View.GONE);
+
+        }
+    }
+
+    //system button back
+    @Override
+    public void onBackPressed(){
+        try {
+            Intent intent = new Intent(NumbersGame.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }catch (Exception e){
 
         }
     }

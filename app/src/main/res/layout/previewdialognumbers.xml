@@ -30,16 +30,16 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:id="@+id/previewimg"
-            android:src="@drawable/previewimgone"
-            android:textAlignment="center"
+            android:id="@+id/previewimgnum"
+            android:src="@drawable/previewimgnum"
             android:layout_weight="60"
             android:layout_marginTop="10dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:id="@+id/textdescription"
-            android:text="@string/dialog_letters_text"
+            android:text="@string/dialog_numbers_text"
+            android:textAlignment="center"
             android:layout_weight="30"
             android:textSize="30sp"/>
         <Button
