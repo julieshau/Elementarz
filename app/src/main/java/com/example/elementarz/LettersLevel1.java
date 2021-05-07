@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +33,7 @@ public class LettersLevel1 extends AppCompatActivity {
     public int count = 0;
 
     Letters array = new Letters();
+    LettersSounds sounds = new LettersSounds();
     Random random = new Random();
 
     @Override
@@ -140,6 +142,8 @@ public class LettersLevel1 extends AppCompatActivity {
 
         //logic is here
         num = random.nextInt(array.images.length);
+        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel1.this, sounds.sounds[num]);
+        mediaplayer.start();
         text_temp.setText(array.answer[num]);//todo remove
         leftCorrect = random.nextBoolean();
         if (leftCorrect){
@@ -173,6 +177,8 @@ public class LettersLevel1 extends AppCompatActivity {
                         if (count < progress.length){
                             count++;
                         }
+                        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel1.this, R.raw.dobrze_1);
+                        mediaplayer.start();
                         //coloring progress
                         for (int i = 0; i < progress.length; i++){ //todo change cycles
                             TextView tv = findViewById(progress[i]);
@@ -186,6 +192,8 @@ public class LettersLevel1 extends AppCompatActivity {
                         if (count > 0){
                             count--;
                         }
+                        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel1.this, R.raw.zle_1);
+                        mediaplayer.start();
                         //coloring progress
                         for (int i = 0; i < progress.length - 1; i++){ //todo change cycles
                             TextView tv = findViewById(progress[i]);
@@ -209,6 +217,8 @@ public class LettersLevel1 extends AppCompatActivity {
                     }
                     else {
                         num = random.nextInt(array.images.length);
+                        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel1.this, sounds.sounds[num]);
+                        mediaplayer.start();
                         text_temp.setText(array.answer[num]);//todo remove
                         leftCorrect = random.nextBoolean();
                         if (leftCorrect){
@@ -250,6 +260,8 @@ public class LettersLevel1 extends AppCompatActivity {
                         if (count < progress.length){
                             count++;
                         }
+                        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel1.this, R.raw.dobrze_1);
+                        mediaplayer.start();
                         //coloring progress
                         for (int i = 0; i < progress.length; i++){ //todo change cycles
                             TextView tv = findViewById(progress[i]);
@@ -263,6 +275,8 @@ public class LettersLevel1 extends AppCompatActivity {
                         if (count > 0){
                             count--;
                         }
+                        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel1.this, R.raw.zle_1);
+                        mediaplayer.start();
                         //coloring progress
                         for (int i = 0; i < progress.length - 1; i++){ //todo change cycles
                             TextView tv = findViewById(progress[i]);
@@ -286,6 +300,8 @@ public class LettersLevel1 extends AppCompatActivity {
                     }
                     else {
                         num = random.nextInt(array.images.length);
+                        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel1.this, sounds.sounds[num]);
+                        mediaplayer.start();
                         text_temp.setText(array.answer[num]);//todo remove
                         leftCorrect = random.nextBoolean();
                         if (leftCorrect){

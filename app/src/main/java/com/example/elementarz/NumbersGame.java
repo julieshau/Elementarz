@@ -146,7 +146,9 @@ public class NumbersGame extends AppCompatActivity {
                 options.get(i).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), R.string.good, Toast.LENGTH_SHORT).show();
+                        MediaPlayer mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.dobrze_1);
+                        mediaplayer.start();
+                        Toast.makeText(getApplicationContext(), "DOBRZE", Toast.LENGTH_SHORT).show();
                         current++;
                         startActivity(intent);
                     }
@@ -155,7 +157,9 @@ public class NumbersGame extends AppCompatActivity {
                 options.get(i).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), R.string.bad, Toast.LENGTH_SHORT).show();
+                        MediaPlayer mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.zle_1);
+                        mediaplayer.start();
+                        Toast.makeText(getApplicationContext(), "ŹLE", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                     }
                 });
