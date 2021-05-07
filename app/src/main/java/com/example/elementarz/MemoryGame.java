@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -152,6 +153,8 @@ public class MemoryGame extends AppCompatActivity {
                 if (clicked == 2){
                     turnOver = true;
                     if (buttons[finalI].getText() == buttons[lastClicked].getText()){
+                        MediaPlayer mediaplayer = MediaPlayer.create(MemoryGame.this, R.raw.dobrze_1);
+                        mediaplayer.start();
                         buttons[finalI].setEnabled(false);
                         buttons[lastClicked].setEnabled(false);
                         turnOver = false;
@@ -160,6 +163,10 @@ public class MemoryGame extends AppCompatActivity {
                         if (matched == 12){
                             dialogEnd.show();
                         }
+                    }
+                    else{
+                        MediaPlayer mediaplayer = MediaPlayer.create(MemoryGame.this, R.raw.zle_1);
+                        mediaplayer.start();
                     }
                 }
                 else if (clicked == 0){

@@ -46,8 +46,6 @@ public class LettersLevel3 extends AppCompatActivity {
         final ImageView img_right = (ImageView)findViewById(R.id.img_right);
         img_right.setClipToOutline(true);
 
-        final TextView text_temp = findViewById(R.id.text_temp);//todo remove
-
         //fullscreen
         Window w = getWindow();
         w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -139,7 +137,6 @@ public class LettersLevel3 extends AppCompatActivity {
 
         //logic is here
         num = random.nextInt(array.images.length);
-        text_temp.setText(array.answer[num]);//todo remove
         leftCorrect = random.nextBoolean();
         if (leftCorrect){
             numLeft = num;
@@ -200,7 +197,6 @@ public class LettersLevel3 extends AppCompatActivity {
                     }
                     else {
                         num = random.nextInt(array.images.length);
-                        text_temp.setText(array.answer[num]);//todo remove
                         leftCorrect = random.nextBoolean();
                         if (leftCorrect){
                             numLeft = num;
@@ -269,7 +265,6 @@ public class LettersLevel3 extends AppCompatActivity {
                     }
                     else {
                         num = random.nextInt(array.images.length);
-                        text_temp.setText(array.answer[num]);//todo remove
                         leftCorrect = random.nextBoolean();
                         if (leftCorrect){
                             numLeft = num;

@@ -49,8 +49,6 @@ public class LettersLevel2 extends AppCompatActivity {
         final ImageView img_right = (ImageView)findViewById(R.id.img_right);
         img_right.setClipToOutline(true);
 
-        final TextView text_temp = findViewById(R.id.text_temp);//todo remove
-
         //fullscreen
         Window w = getWindow();
         w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -144,7 +142,6 @@ public class LettersLevel2 extends AppCompatActivity {
         num = random.nextInt(array.images.length);
         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel2.this, sounds.sounds[num]);
         mediaplayer.start();
-        text_temp.setText(array.answer[num]);//todo remove
         leftCorrect = random.nextBoolean();
         if (leftCorrect){
             numLeft = num;
@@ -219,7 +216,6 @@ public class LettersLevel2 extends AppCompatActivity {
                         num = random.nextInt(array.images.length);
                         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel2.this, sounds.sounds[num]);
                         mediaplayer.start();
-                        text_temp.setText(array.answer[num]);//todo remove
                         leftCorrect = random.nextBoolean();
                         if (leftCorrect){
                             numLeft = num;
@@ -302,7 +298,6 @@ public class LettersLevel2 extends AppCompatActivity {
                         num = random.nextInt(array.images.length);
                         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel2.this, sounds.sounds[num]);
                         mediaplayer.start();
-                        text_temp.setText(array.answer[num]);//todo remove
                         leftCorrect = random.nextBoolean();
                         if (leftCorrect){
                             numLeft = num;
