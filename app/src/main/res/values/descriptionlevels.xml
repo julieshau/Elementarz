@@ -3,4 +3,5 @@
     <string name="dialog_letters_text">Nauka literek. Kliknij na literę, którą usłyszysz</string>
     <string name="dialog_numbers_text">Nauka cyferek. Policz zwierzęta na ekranie</string>
     <string name="dialog_memory_text">Odwróć karty i znajdź parę zwierząt</string>
+    <string name="dialog_memory_easy_text">Znajdź kartę z podanym zwierzęciem</string>
 </resources>

@@ -23,7 +23,8 @@ public class SliderAdapter extends PagerAdapter {
             R.drawable.start_img,
             R.drawable.start_img2,
             R.drawable.start_img3,
-            R.drawable.start_img4
+            R.drawable.start_img4,
+            R.drawable.start_img5
     };
 
     @Override

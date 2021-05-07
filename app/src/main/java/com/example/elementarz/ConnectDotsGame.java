@@ -79,5 +79,17 @@ public class ConnectDotsGame extends Activity {
         Intent intent = new Intent(ConnectDotsGame.this, ConnectDotsStar.class);
         startActivity(intent);
     }
+
+    //system button back
+    @Override
+    public void onBackPressed(){
+        try {
+            Intent intent = new Intent(ConnectDotsGame.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }catch (Exception e){
+
+        }
+    }
 }
 

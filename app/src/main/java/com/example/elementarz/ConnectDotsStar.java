@@ -191,4 +191,16 @@ public class ConnectDotsStar extends AppCompatActivity {
         //return new Point(left, top);
         return new Point(x_center, y_center);
     }
+
+    //system button back
+    @Override
+    public void onBackPressed(){
+        try {
+            Intent intent = new Intent(ConnectDotsStar.this, ConnectDotsGame.class);
+            startActivity(intent);
+            finish();
+        }catch (Exception e){
+
+        }
+    }
 }

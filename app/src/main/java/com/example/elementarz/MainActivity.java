@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int gameAmount = 4;
+    private final int gameAmount = 5;
     private long backPressedTime;
     private Toast backToast;
     private ViewPager mSlideViewPager;
@@ -57,11 +57,14 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(MainActivity.this, NumbersGame.class);
                     intent.putExtra("image_name", numbersGameImages[0]);
                 }
-                else if(mCurrentPage == 2){//memory
-                    intent = new Intent(MainActivity.this, MemoryGame.class);
+                else if(mCurrentPage == 2){//memory easy
+                    intent = new Intent(MainActivity.this, MemoryGameEasy.class);
                 }
-                else {
+                else if(mCurrentPage == 3){//dot connection
                     intent = new Intent(MainActivity.this, ConnectDotsGame.class);
+                }
+                else {//memory
+                    intent = new Intent(MainActivity.this, MemoryGame.class);
                 }
                 MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.przejscie_1);
                 mediaPlayer.start();
