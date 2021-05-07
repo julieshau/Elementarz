@@ -37,6 +37,38 @@ public class MemoryGame extends AppCompatActivity {
         Window w = getWindow();
         w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        Integer[] images = {
+                R.drawable.dog,
+                R.drawable.duck,
+                R.drawable.elefant,
+                R.drawable.fish,
+                R.drawable.pingwin,
+                R.drawable.zebra,
+                R.drawable.dog,
+                R.drawable.duck,
+                R.drawable.elefant,
+                R.drawable.fish,
+                R.drawable.pingwin,
+                R.drawable.zebra
+        };
+        Button[] buttons = {
+                (Button) findViewById(R.id.mem_card1),
+                (Button) findViewById(R.id.mem_card2),
+                (Button) findViewById(R.id.mem_card3),
+                (Button) findViewById(R.id.mem_card4),
+                (Button) findViewById(R.id.mem_card5),
+                (Button) findViewById(R.id.mem_card6),
+                (Button) findViewById(R.id.mem_card7),
+                (Button) findViewById(R.id.mem_card8),
+                (Button) findViewById(R.id.mem_card9),
+                (Button) findViewById(R.id.mem_card10),
+                (Button) findViewById(R.id.mem_card11),
+                (Button) findViewById(R.id.mem_card12),
+        };
+        List<Integer> temp = Arrays.asList(images);
+        Collections.shuffle(temp);
+        temp.toArray(images);
+
         //dialog window
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -59,6 +91,15 @@ public class MemoryGame extends AppCompatActivity {
         Button buttonContinue = (Button)dialog.findViewById(R.id.btncontinue);
         buttonContinue.setOnClickListener(v -> {
             dialog.dismiss();
+            for (int i = 0; i < images.length; i++){
+                buttons[i].setBackgroundResource(images[i]);
+            }
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                for (int i = 0; i < images.length; i++){
+                    buttons[i].setBackgroundResource(R.drawable.cardback);
+                }
+            }, 5000);
         });
         dialog.show();
         //______________________________
@@ -98,40 +139,7 @@ public class MemoryGame extends AppCompatActivity {
             dialogEnd.dismiss();
         });
 
-        Integer[] images = {
-                R.drawable.dog,
-                R.drawable.duck,
-                R.drawable.elefant,
-                R.drawable.fish,
-                R.drawable.pingwin,
-                R.drawable.zebra,
-                R.drawable.dog,
-                R.drawable.duck,
-                R.drawable.elefant,
-                R.drawable.fish,
-                R.drawable.pingwin,
-                R.drawable.zebra
-        };
-        Button[] buttons = {
-                (Button) findViewById(R.id.mem_card1),
-                (Button) findViewById(R.id.mem_card2),
-                (Button) findViewById(R.id.mem_card3),
-                (Button) findViewById(R.id.mem_card4),
-                (Button) findViewById(R.id.mem_card5),
-                (Button) findViewById(R.id.mem_card6),
-                (Button) findViewById(R.id.mem_card7),
-                (Button) findViewById(R.id.mem_card8),
-                (Button) findViewById(R.id.mem_card9),
-                (Button) findViewById(R.id.mem_card10),
-                (Button) findViewById(R.id.mem_card11),
-                (Button) findViewById(R.id.mem_card12),
-        };
-
         //main logic is here
-        List<Integer> temp = Arrays.asList(images);
-        Collections.shuffle(temp);
-        temp.toArray(images);
-
         for (int i = 0; i < images.length; i++){
             buttons[i].setText("cardBack");
             buttons[i].setTextSize(0.0F);
