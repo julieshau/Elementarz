@@ -76,6 +76,24 @@ public class LettersLevel1 extends AppCompatActivity {
         Button buttonContinue = (Button)dialog.findViewById(R.id.btncontinue);
         buttonContinue.setOnClickListener(v -> {
             dialog.dismiss();
+            num = random.nextInt(array.images.length);
+            MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel1.this, sounds.sounds[num]);
+            mediaplayer.start();
+            leftCorrect = random.nextBoolean();
+            if (leftCorrect){
+                numLeft = num;
+                do {
+                    numRight = random.nextInt(array.images.length);
+                } while (numLeft == numRight);
+            } else {
+                numRight = num;
+                do {
+                    numLeft = random.nextInt(array.images.length);
+                } while (numLeft == numRight);
+            }
+
+            img_left.setImageResource(array.images[numLeft]);
+            img_right.setImageResource(array.images[numRight]);
         });
         dialog.show();
 
@@ -139,25 +157,6 @@ public class LettersLevel1 extends AppCompatActivity {
         Animation a = AnimationUtils.loadAnimation(LettersLevel1.this, R.anim.alpha);
 
         //logic is here
-        num = random.nextInt(array.images.length);
-        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel1.this, sounds.sounds[num]);
-        mediaplayer.start();
-        leftCorrect = random.nextBoolean();
-        if (leftCorrect){
-            numLeft = num;
-            do {
-                numRight = random.nextInt(array.images.length);
-            } while (numLeft == numRight);
-        } else {
-            numRight = num;
-            do {
-                numLeft = random.nextInt(array.images.length);
-            } while (numLeft == numRight);
-        }
-
-        img_left.setImageResource(array.images[numLeft]);
-        img_right.setImageResource(array.images[numRight]);
-
         //click on left image
         img_left.setOnTouchListener(new View.OnTouchListener() {
             @Override

@@ -2,6 +2,8 @@
     <string name="app_name">Elementarz</string>
     <string name="start">Start</string>
     <string name="back">Powrót</string>
+    <string name="add">Dodaj</string>
+    <string name="approve">Zatwierdź</string>
     <string name="level">Etap:</string>
     <string name="level1">Etap:1</string>
     <string name="textcontinue">Dalej</string>
