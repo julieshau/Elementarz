@@ -86,6 +86,8 @@ public class LettersLevel3 extends AppCompatActivity {
             dialog.dismiss();
         });
         dialog.show();
+        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel3.this, R.raw.literki);
+        mediaplayer.start();
 
         //______________________________
 
@@ -179,6 +181,8 @@ public class LettersLevel3 extends AppCompatActivity {
                     if (numLeft == num){ //right answer
                         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel3.this, R.raw.dobrze_1);
                         mediaplayer.start();
+                        mediaplayer = MediaPlayer.create(LettersLevel3.this, R.raw.brawo_1);
+                        mediaplayer.start();
                         edit.putInt("correct_answers", stats.getInt("correct_answers", 0) + 1);
                         edit.apply();
                         if (count < progress.length){
@@ -195,6 +199,8 @@ public class LettersLevel3 extends AppCompatActivity {
                         }
                     } else { //wrong answer
                         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel3.this, R.raw.zle_1);
+                        mediaplayer.start();
+                        mediaplayer = MediaPlayer.create(LettersLevel3.this, R.raw.blad_1);
                         mediaplayer.start();
                         edit.putInt("wrong_answers", stats.getInt("wrong_answers", 0) + 1);
                         edit.apply();
@@ -259,6 +265,8 @@ public class LettersLevel3 extends AppCompatActivity {
                     if (numRight == num){ //right answer
                         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel3.this, R.raw.dobrze_1);
                         mediaplayer.start();
+                        mediaplayer = MediaPlayer.create(LettersLevel3.this, R.raw.brawo_1);
+                        mediaplayer.start();
                         edit.putInt("correct_answers", stats.getInt("correct_answers", 0) + 1);
                         edit.apply();
                         if (count < progress.length){
@@ -275,6 +283,8 @@ public class LettersLevel3 extends AppCompatActivity {
                         }
                     } else { //wrong answer
                         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel3.this, R.raw.zle_1);
+                        mediaplayer.start();
+                        mediaplayer = MediaPlayer.create(LettersLevel3.this, R.raw.blad_1);
                         mediaplayer.start();
                         edit.putInt("wrong_answers", stats.getInt("wrong_answers", 0) + 1);
                         edit.apply();

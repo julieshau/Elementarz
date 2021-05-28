@@ -112,6 +112,8 @@ public class MemoryGame extends AppCompatActivity {
             }, 5000);
         });
         dialog.show();
+        MediaPlayer mediaplayer = MediaPlayer.create(MemoryGame.this, R.raw.obrazki);
+        mediaplayer.start();
         //______________________________
 
         //win dialog window
@@ -166,8 +168,10 @@ public class MemoryGame extends AppCompatActivity {
                 if (clicked == 2){
                     turnOver = true;
                     if (buttons[finalI].getText() == buttons[lastClicked].getText()){
-                        MediaPlayer mediaplayer = MediaPlayer.create(MemoryGame.this, R.raw.dobrze_1);
-                        mediaplayer.start();
+                        MediaPlayer mediaplayer1 = MediaPlayer.create(MemoryGame.this, R.raw.dobrze_1);
+                        mediaplayer1.start();
+                        mediaplayer1 = MediaPlayer.create(MemoryGame.this, R.raw.brawo_1);
+                        mediaplayer1.start();
                         buttons[finalI].setEnabled(false);
                         buttons[lastClicked].setEnabled(false);
                         turnOver = false;
@@ -191,8 +195,10 @@ public class MemoryGame extends AppCompatActivity {
                         }
                     }
                     else{
-                        MediaPlayer mediaplayer = MediaPlayer.create(MemoryGame.this, R.raw.zle_1);
-                        mediaplayer.start();
+                        MediaPlayer mediaplayer1 = MediaPlayer.create(MemoryGame.this, R.raw.zle_1);
+                        mediaplayer1.start();
+                        mediaplayer1 = MediaPlayer.create(MemoryGame.this, R.raw.blad_1);
+                        mediaplayer1.start();
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             buttons[finalI].setBackgroundResource(R.drawable.cardback);

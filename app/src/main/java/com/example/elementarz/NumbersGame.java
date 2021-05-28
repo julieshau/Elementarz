@@ -140,6 +140,8 @@ public class NumbersGame extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+        MediaPlayer mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.liczby);
+        mediaplayer.start();
         if(current == 9){
             current = 0;
             int completed = stats.getInt("completed_games", 0);
@@ -173,6 +175,8 @@ public class NumbersGame extends AppCompatActivity {
                     public void onClick(View v) {
                         MediaPlayer mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.dobrze_1);
                         mediaplayer.start();
+                        mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.brawo_1);
+                        mediaplayer.start();
                         //Toast.makeText(getApplicationContext(), "DOBRZE", Toast.LENGTH_SHORT).show();
                         current++;
                         edit.putInt("correct_answers", stats.getInt("correct_answers", 0) + 1);
@@ -185,6 +189,8 @@ public class NumbersGame extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         MediaPlayer mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.zle_1);
+                        mediaplayer.start();
+                        mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.blad_1);
                         mediaplayer.start();
                         //Toast.makeText(getApplicationContext(), "ŹLE", Toast.LENGTH_SHORT).show();
                         edit.putInt("wrong_answers", stats.getInt("wrong_answers", 0) + 1);

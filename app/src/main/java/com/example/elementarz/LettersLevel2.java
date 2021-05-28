@@ -140,6 +140,8 @@ public class LettersLevel2 extends AppCompatActivity {
             }
             dialogEnd.dismiss();
         });
+        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel2.this, R.raw.literki);
+        mediaplayer.start();
 
         //______________________________
 
@@ -183,6 +185,8 @@ public class LettersLevel2 extends AppCompatActivity {
                         }
                         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel2.this, R.raw.dobrze_1);
                         mediaplayer.start();
+                        mediaplayer = MediaPlayer.create(LettersLevel2.this, R.raw.brawo_1);
+                        mediaplayer.start();
                         edit.putInt("correct_answers", stats.getInt("correct_answers", 0) + 1);
                         edit.apply();
                         //coloring progress
@@ -199,6 +203,8 @@ public class LettersLevel2 extends AppCompatActivity {
                             count--;
                         }
                         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel2.this, R.raw.zle_1);
+                        mediaplayer.start();
+                        mediaplayer = MediaPlayer.create(LettersLevel2.this, R.raw.blad_1);
                         mediaplayer.start();
                         edit.putInt("wrong_answers", stats.getInt("wrong_answers", 0) + 1);
                         edit.apply();
@@ -270,6 +276,8 @@ public class LettersLevel2 extends AppCompatActivity {
                         }
                         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel2.this, R.raw.dobrze_1);
                         mediaplayer.start();
+                        mediaplayer = MediaPlayer.create(LettersLevel2.this, R.raw.brawo_1);
+                        mediaplayer.start();
                         edit.putInt("correct_answers", stats.getInt("correct_answers", 0) + 1);
                         edit.apply();
                         //coloring progress
@@ -286,6 +294,8 @@ public class LettersLevel2 extends AppCompatActivity {
                             count--;
                         }
                         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel2.this, R.raw.zle_1);
+                        mediaplayer.start();
+                        mediaplayer = MediaPlayer.create(LettersLevel2.this, R.raw.blad_1);
                         mediaplayer.start();
                         edit.putInt("wrong_answers", stats.getInt("wrong_answers", 0) + 1);
                         edit.apply();
