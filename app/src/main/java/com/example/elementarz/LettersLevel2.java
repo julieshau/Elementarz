@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -232,8 +233,11 @@ public class LettersLevel2 extends AppCompatActivity {
                     }
                     else {
                         num = random.nextInt(array.images.length);
-                        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel2.this, sounds.sounds[num]);
-                        mediaplayer.start();
+                        Handler handler = new Handler();
+                        handler.postDelayed(() -> {
+                            MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel2.this, sounds.sounds[num]);
+                            mediaplayer.start();
+                        }, 2000);
                         leftCorrect = random.nextBoolean();
                         if (leftCorrect){
                             numLeft = num;
@@ -323,8 +327,11 @@ public class LettersLevel2 extends AppCompatActivity {
                     }
                     else {
                         num = random.nextInt(array.images.length);
-                        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel2.this, sounds.sounds[num]);
-                        mediaplayer.start();
+                        Handler handler = new Handler();
+                        handler.postDelayed(() -> {
+                            MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel2.this, sounds.sounds[num]);
+                            mediaplayer.start();
+                        }, 2000);
                         leftCorrect = random.nextBoolean();
                         if (leftCorrect){
                             numLeft = num;

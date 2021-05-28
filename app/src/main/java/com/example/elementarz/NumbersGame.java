@@ -98,6 +98,8 @@ public class NumbersGame extends AppCompatActivity {
         if (show){
             show = false;
             dialog.show();
+            MediaPlayer mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.liczby);
+            mediaplayer.start();
         }
 
         //______________________________
@@ -140,8 +142,8 @@ public class NumbersGame extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        MediaPlayer mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.liczby);
-        mediaplayer.start();
+//        MediaPlayer mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.liczby);
+//        mediaplayer.start();
         if(current == 9){
             current = 0;
             int completed = stats.getInt("completed_games", 0);
