@@ -25,7 +25,7 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int gameAmount = 6;
+    private final int gameAmount = 5;
     private long backPressedTime;
     private Toast backToast;
     private ViewPager mSlideViewPager;
