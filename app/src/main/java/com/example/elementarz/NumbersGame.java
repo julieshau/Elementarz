@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 // aktywność wyświetlająca pewną ilość obrazków i pewną i
@@ -33,11 +36,21 @@ public class NumbersGame extends AppCompatActivity {
     private List<ImageView> options = new ArrayList<>();
     private List<ImageView> helper = new ArrayList<>(); // trzymane są view obrazków do liczenia w kolejności: _00, _01, _02, _10, _11, _12, _20, _21, _22
     // czyli _ij jest pod indeksem 3*i + j
+    private SharedPreferences stats;
+    private Editor edit;
+    private static long start = 0;
+    private static boolean show = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.numbers_game);
+
+        Context context = getApplicationContext();
+        stats = context.getSharedPreferences("number_game_stats", MODE_PRIVATE);
+        edit = stats.edit();
+        if(start == 0)
+            start =  Calendar.getInstance().getTimeInMillis();
 
         //fullscreen
         Window w = getWindow();
@@ -82,7 +95,8 @@ public class NumbersGame extends AppCompatActivity {
         buttonContinue.setOnClickListener(v -> {
             dialog.dismiss();
         });
-        if (current == 0){
+        if (show){
+            show = false;
             dialog.show();
         }
 
@@ -128,6 +142,17 @@ public class NumbersGame extends AppCompatActivity {
     protected void onStart() {
         if(current == 9){
             current = 0;
+            int completed = stats.getInt("completed_games", 0);
+            long completed_time_sum = stats.getLong("complete_time_sum", 0);
+            long time_elapsed = Calendar.getInstance().getTimeInMillis() - start;
+
+            edit.putInt("completed_games", completed + 1);
+            edit.putLong("complete_time_sum", completed_time_sum + time_elapsed);
+            if(time_elapsed < stats.getLong("best", Long.MAX_VALUE)) {
+                edit.putLong("best", time_elapsed);
+            }
+            edit.putLong("average", (completed_time_sum + time_elapsed)/(completed + 1));
+            edit.apply();
             dialogEnd.show();
         }
         super.onStart();
@@ -148,8 +173,10 @@ public class NumbersGame extends AppCompatActivity {
                     public void onClick(View v) {
                         MediaPlayer mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.dobrze_1);
                         mediaplayer.start();
-                        Toast.makeText(getApplicationContext(), "DOBRZE", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "DOBRZE", Toast.LENGTH_SHORT).show();
                         current++;
+                        edit.putInt("correct_answers", stats.getInt("correct_answers", 0) + 1);
+                        edit.apply();
                         startActivity(intent);
                     }
                 });
@@ -159,7 +186,9 @@ public class NumbersGame extends AppCompatActivity {
                     public void onClick(View v) {
                         MediaPlayer mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.zle_1);
                         mediaplayer.start();
-                        Toast.makeText(getApplicationContext(), "ŹLE", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "ŹLE", Toast.LENGTH_SHORT).show();
+                        edit.putInt("wrong_answers", stats.getInt("wrong_answers", 0) + 1);
+                        edit.apply();
                         startActivity(intent);
                     }
                 });
@@ -229,4 +258,18 @@ public class NumbersGame extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        current = 0;
+        long time_elapsed = Calendar.getInstance().getTimeInMillis() - start;
+        start = 0;
+        show = true;
+        edit.putLong("elapsed_time", stats.getLong("elapsed_time", 0) + time_elapsed);
+        edit.apply();
+        SharedPreferences stats_general = getApplicationContext().getSharedPreferences("general_stats", MODE_PRIVATE);
+        Editor edit_general = stats_general.edit();
+        edit_general.putLong("elapsed_time", stats_general.getLong("elapsed_time", 0) + time_elapsed);
+        edit_general.apply();
+    }
 }

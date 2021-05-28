@@ -7,12 +7,37 @@
     android:background="@drawable/main_background"
     tools:context=".MainActivity">
 
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/slideViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </androidx.viewpager.widget.ViewPager>
+    <LinearLayout
+        android:id="@+id/starlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal"
+        android:layout_alignParentEnd="true"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/statistics_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_beige"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="STATYSTYKI"
+            android:textColor="@color/brown60"
+            android:textSize="20sp"
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
 
 
     <LinearLayout

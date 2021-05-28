@@ -2,6 +2,7 @@ package com.example.elementarz;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -14,7 +15,10 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class CanvasView extends View {
     private Bitmap bitmap;
@@ -36,6 +40,9 @@ public class CanvasView extends View {
     private int BUTTONS_NR;
     Dialog dialogEnd;
 
+    private SharedPreferences stats;
+    private SharedPreferences.Editor edit;
+    private long start = 0;
 
     public CanvasView(Context c, AttributeSet attrs) {
         super(c, attrs);
@@ -48,6 +55,9 @@ public class CanvasView extends View {
         paintLine.setStrokeJoin(Paint.Join.ROUND);
         paintLine.setStrokeWidth(45f);
         paintLine.setStrokeCap(Paint.Cap.ROUND);
+        stats = c.getSharedPreferences("connect_dots_game_stats", MODE_PRIVATE);
+        edit = stats.edit();
+        start =  Calendar.getInstance().getTimeInMillis();
     }
 
     @Override
@@ -103,6 +113,11 @@ public class CanvasView extends View {
                 }
             }
            it++;
+            edit.putInt("correct_answers", stats.getInt("correct_answers", 0) + 1);
+            edit.apply();
+        } else {
+            edit.putInt("wrong_answers", stats.getInt("wrong_answers", 0) + 1);
+            edit.apply();
         }
 
         path.reset();
@@ -137,11 +152,33 @@ public class CanvasView extends View {
                 break;
         }
         if (it == BUTTONS_NR){
+            update_stats();
             dialogEnd.show();
 //            Intent intent_close = new Intent(context, ConnectDotsGame.class);
 //            context.startActivity(intent_close);
         }
         return true;
+    }
+
+    private void update_stats(){
+        int completed = stats.getInt("completed_games", 0);
+        long completed_time_sum = stats.getLong("complete_time_sum", 0);
+        long time_elapsed = Calendar.getInstance().getTimeInMillis() - start;
+
+        edit.putInt("completed_games", completed + 1);
+        edit.putLong("complete_time_sum", completed_time_sum + time_elapsed);
+        if(time_elapsed < stats.getLong("best", Long.MAX_VALUE)) {
+            edit.putLong("best", time_elapsed);
+        }
+        edit.putLong("average", (completed_time_sum + time_elapsed)/(completed + 1));
+
+        edit.putLong("elapsed_time", stats.getLong("elapsed_time", 0) + time_elapsed);
+
+        SharedPreferences stats_general = context.getSharedPreferences("general_stats", MODE_PRIVATE);
+        SharedPreferences.Editor edit_general = stats_general.edit();
+        edit_general.putLong("elapsed_time", stats_general.getLong("elapsed_time", 0) + time_elapsed);
+        edit_general.apply();
+        edit.apply();
     }
 
     public void setAnswers(ArrayList<Answer> answers) {
@@ -171,6 +208,8 @@ public class CanvasView extends View {
     public void setEndDialog(Dialog dialogEnd) {
         this.dialogEnd = dialogEnd;
     }
+
+
 }
 
 

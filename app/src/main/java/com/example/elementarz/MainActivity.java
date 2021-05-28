@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 /*Add game
 * -change gameAmount
 * -edit buttonStart->onclicklistener
@@ -23,7 +25,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int gameAmount = 5;
+    private final int gameAmount = 6;
     private long backPressedTime;
     private Toast backToast;
     private ViewPager mSlideViewPager;
@@ -31,12 +33,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView[] mDots;
     private SliderAdapter sliderAdapter;
     private int mCurrentPage;
+    private long start;
+
 
     private String numbersGameImages[] = {"doggo", "kitten"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        start =  Calendar.getInstance().getTimeInMillis();
         setContentView(R.layout.activity_main);
 
         mSlideViewPager = (ViewPager)findViewById(R.id.slideViewPager);
@@ -68,6 +73,17 @@ public class MainActivity extends AppCompatActivity {
                 }
                 MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.przejscie_1);
                 mediaPlayer.start();
+                startActivity(intent);
+                finish();
+            }catch (Exception e){
+
+            }
+        });
+
+        Button buttonStatistics = (Button) findViewById(R.id.statistics_btn);
+        buttonStatistics.setOnClickListener(v-> {
+            try {
+                Intent intent = new Intent(MainActivity.this, Statistics.class);
                 startActivity(intent);
                 finish();
             }catch (Exception e){

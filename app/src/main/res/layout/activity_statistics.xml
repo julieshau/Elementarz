@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/main_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/zewnetrzny"
+        android:layout_width="match_parent"
+        android:layout_height="542dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_weight="0"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/statistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="STATYSTYKI"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="38sp"
+            app:backgroundTint="@null" />
+
+
+        <TextView
+            android:id="@+id/time_in_game"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:text="Czas spędzony w grze: 102020 minut"
+            android:textColor="@color/brown95"
+            android:textSize="17sp" />
+
+
+        <TextView
+            android:id="@+id/games_completed_info"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:text="Łącznie ukończono Y gier"
+            android:textColor="@color/brown95"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/letters_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_beige"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="LITERKI"
+            android:textAllCaps="false"
+            android:textColor="@color/beige"
+            android:textSize="28sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/numbers_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_beige"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="CYFERKI"
+            android:textAllCaps="false"
+            android:textColor="@color/beige"
+            android:textSize="28sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/memory_easy_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_beige"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="MEMORY 1"
+            android:textAllCaps="false"
+            android:textColor="@color/beige"
+            android:textSize="28sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/memory_hard_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_beige"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="MEMORY 2"
+            android:textAllCaps="false"
+            android:textColor="@color/beige"
+            android:textSize="28sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/connect_dots_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_beige"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="ŁĄCZENIE KROPEK"
+            android:textAllCaps="false"
+            android:textColor="@color/beige"
+            android:textSize="28sp"
+            app:backgroundTint="@null" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.example.elementarz;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,10 +30,18 @@ public class MemoryGame extends AppCompatActivity {
     boolean turnOver = false;
     int lastClicked = -1;
 
+    private SharedPreferences stats;
+    private SharedPreferences.Editor edit;
+    private static long start = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.memory);
+
+        stats = getApplicationContext().getSharedPreferences("memory2_game_stats", MODE_PRIVATE);
+        edit = stats.edit();
+        start =  Calendar.getInstance().getTimeInMillis();
 
         //fullscreen
         Window w = getWindow();
@@ -163,7 +173,20 @@ public class MemoryGame extends AppCompatActivity {
                         turnOver = false;
                         clicked = 0;
                         matched += 2;
+                        edit.putInt("correct_answers", stats.getInt("correct_answers", 0) + 1);
+                        edit.apply();
                         if (matched == 12){
+                            int completed = stats.getInt("completed_games", 0);
+                            long completed_time_sum = stats.getLong("complete_time_sum", 0);
+                            long time_elapsed = Calendar.getInstance().getTimeInMillis() - start;
+
+                            edit.putInt("completed_games", completed + 1);
+                            edit.putLong("complete_time_sum", completed_time_sum + time_elapsed);
+                            if(time_elapsed < stats.getLong("best", Long.MAX_VALUE)) {
+                                edit.putLong("best", time_elapsed);
+                            }
+                            edit.putLong("average", (completed_time_sum + time_elapsed)/(completed + 1));
+                            edit.apply();
                             dialogEnd.show();
                         }
                     }
@@ -179,6 +202,8 @@ public class MemoryGame extends AppCompatActivity {
                             lastClicked = -1;
                             clicked = 0;
                             turnOver = false;
+                            edit.putInt("wrong_answers", stats.getInt("wrong_answers", 0) + 1);
+                            edit.apply();
                         }, 1000);
                     }
                 }
@@ -200,5 +225,18 @@ public class MemoryGame extends AppCompatActivity {
         }catch (Exception e){
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        long time_elapsed = Calendar.getInstance().getTimeInMillis() - start;
+        start = 0;
+        edit.putLong("elapsed_time", stats.getLong("elapsed_time", 0) + time_elapsed);
+        edit.apply();
+        SharedPreferences stats_general = getApplicationContext().getSharedPreferences("general_stats", MODE_PRIVATE);
+        SharedPreferences.Editor edit_general = stats_general.edit();
+        edit_general.putLong("elapsed_time", stats_general.getLong("elapsed_time", 0) + time_elapsed);
+        edit_general.apply();
     }
 }

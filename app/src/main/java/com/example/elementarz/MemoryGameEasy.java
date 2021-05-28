@@ -2,6 +2,7 @@ package com.example.elementarz;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -31,10 +33,19 @@ public class MemoryGameEasy extends AppCompatActivity {
     int matched = 0;
     boolean turnOver = false;
 
+    private SharedPreferences stats;
+    private SharedPreferences.Editor edit;
+    private static long start = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.memory_easy);
+
+        stats = getApplicationContext().getSharedPreferences("memory1_game_stats", MODE_PRIVATE);
+        edit = stats.edit();
+        start =  Calendar.getInstance().getTimeInMillis();
 
         //fullscreen
         Window w = getWindow();
@@ -158,6 +169,8 @@ public class MemoryGameEasy extends AppCompatActivity {
                     if (buttons[finalI].getText() == mainButton.getText()){
                         MediaPlayer mediaplayer = MediaPlayer.create(MemoryGameEasy.this, R.raw.dobrze_1);
                         mediaplayer.start();
+                        edit.putInt("correct_answers", stats.getInt("correct_answers", 0) + 1);
+                        edit.apply();
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             buttons[finalI].setEnabled(false);
@@ -166,7 +179,19 @@ public class MemoryGameEasy extends AppCompatActivity {
                             clicked = 0;
                             matched++;
                             mainOptions.remove(images[finalI]);
+
                             if (mainOptions.isEmpty()){
+                                int completed = stats.getInt("completed_games", 0);
+                                long completed_time_sum = stats.getLong("complete_time_sum", 0);
+                                long time_elapsed = Calendar.getInstance().getTimeInMillis() - start;
+
+                                edit.putInt("completed_games", completed + 1);
+                                edit.putLong("complete_time_sum", completed_time_sum + time_elapsed);
+                                if(time_elapsed < stats.getLong("best", Long.MAX_VALUE)) {
+                                    edit.putLong("best", time_elapsed);
+                                }
+                                edit.putLong("average", (completed_time_sum + time_elapsed)/(completed + 1));
+                                edit.apply();
                                 dialogEnd.show();
                             }
                             else{
@@ -178,6 +203,8 @@ public class MemoryGameEasy extends AppCompatActivity {
                     }
                     else {
                         MediaPlayer mediaplayer = MediaPlayer.create(MemoryGameEasy.this, R.raw.zle_1);
+                        edit.putInt("wrong_answers", stats.getInt("wrong_answers", 0) + 1);
+                        edit.apply();
                         mediaplayer.start();
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
@@ -206,5 +233,18 @@ public class MemoryGameEasy extends AppCompatActivity {
         }catch (Exception e){
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        long time_elapsed = Calendar.getInstance().getTimeInMillis() - start;
+        start = 0;
+        edit.putLong("elapsed_time", stats.getLong("elapsed_time", 0) + time_elapsed);
+        edit.apply();
+        SharedPreferences stats_general = getApplicationContext().getSharedPreferences("general_stats", MODE_PRIVATE);
+        SharedPreferences.Editor edit_general = stats_general.edit();
+        edit_general.putLong("elapsed_time", stats_general.getLong("elapsed_time", 0) + time_elapsed);
+        edit_general.apply();
     }
 }

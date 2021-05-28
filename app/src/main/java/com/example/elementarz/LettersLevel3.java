@@ -2,8 +2,10 @@ package com.example.elementarz;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Calendar;
 import java.util.Random;
 
 public class LettersLevel3 extends AppCompatActivity {
@@ -31,12 +34,20 @@ public class LettersLevel3 extends AppCompatActivity {
     public int count = 0;
 
     Letters array = new Letters();
+    LettersSounds sounds = new LettersSounds();
     Random random = new Random();
 
+    private SharedPreferences stats;
+    private SharedPreferences.Editor edit;
+    private static long start = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.universal);
+
+        stats = getApplicationContext().getSharedPreferences("letters_game_stats", MODE_PRIVATE);
+        edit = stats.edit();
+        start =  Calendar.getInstance().getTimeInMillis();
 
         TextView text_levels = findViewById(R.id.text_levels);
         text_levels.setText(R.string.level1);
@@ -166,6 +177,10 @@ public class LettersLevel3 extends AppCompatActivity {
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP){
                     if (numLeft == num){ //right answer
+                        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel3.this, R.raw.dobrze_1);
+                        mediaplayer.start();
+                        edit.putInt("correct_answers", stats.getInt("correct_answers", 0) + 1);
+                        edit.apply();
                         if (count < progress.length){
                             count++;
                         }
@@ -179,6 +194,10 @@ public class LettersLevel3 extends AppCompatActivity {
                             tv.setBackgroundResource(R.drawable.style_points_green);
                         }
                     } else { //wrong answer
+                        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel3.this, R.raw.zle_1);
+                        mediaplayer.start();
+                        edit.putInt("wrong_answers", stats.getInt("wrong_answers", 0) + 1);
+                        edit.apply();
                         if (count > 0){
                             count--;
                         }
@@ -194,9 +213,13 @@ public class LettersLevel3 extends AppCompatActivity {
                     }
                     if (count == progress.length){
                         //exit level
+                        update_stats();
+                        dialogEnd.show();
                     }
                     else {
                         num = random.nextInt(array.images.length);
+                        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel3.this, sounds.sounds[num]);
+                        mediaplayer.start();
                         leftCorrect = random.nextBoolean();
                         if (leftCorrect){
                             numLeft = num;
@@ -234,6 +257,10 @@ public class LettersLevel3 extends AppCompatActivity {
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP){
                     if (numRight == num){ //right answer
+                        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel3.this, R.raw.dobrze_1);
+                        mediaplayer.start();
+                        edit.putInt("correct_answers", stats.getInt("correct_answers", 0) + 1);
+                        edit.apply();
                         if (count < progress.length){
                             count++;
                         }
@@ -247,6 +274,10 @@ public class LettersLevel3 extends AppCompatActivity {
                             tv.setBackgroundResource(R.drawable.style_points_green);
                         }
                     } else { //wrong answer
+                        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel3.this, R.raw.zle_1);
+                        mediaplayer.start();
+                        edit.putInt("wrong_answers", stats.getInt("wrong_answers", 0) + 1);
+                        edit.apply();
                         if (count > 0){
                             count--;
                         }
@@ -262,9 +293,13 @@ public class LettersLevel3 extends AppCompatActivity {
                     }
                     if (count == progress.length){
                         //exit level
+                        update_stats();
+                        dialogEnd.show();
                     }
                     else {
                         num = random.nextInt(array.images.length);
+                        MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel3.this, sounds.sounds[num]);
+                        mediaplayer.start();
                         leftCorrect = random.nextBoolean();
                         if (leftCorrect){
                             numLeft = num;
@@ -290,6 +325,21 @@ public class LettersLevel3 extends AppCompatActivity {
         });
 
     }
+
+    private void update_stats(){
+        int completed = stats.getInt("completed_games", 0);
+        long completed_time_sum = stats.getLong("complete_time_sum", 0);
+        long time_elapsed = Calendar.getInstance().getTimeInMillis() - start;
+
+        edit.putInt("completed_games", completed + 1);
+        edit.putLong("complete_time_sum", completed_time_sum + time_elapsed);
+        if(time_elapsed < stats.getLong("best", Long.MAX_VALUE)) {
+            edit.putLong("best", time_elapsed);
+        }
+        edit.putLong("average", (completed_time_sum + time_elapsed)/(completed + 1));
+        edit.apply();
+    }
+
     //system button back
     @Override
     public void onBackPressed(){
@@ -300,5 +350,18 @@ public class LettersLevel3 extends AppCompatActivity {
         }catch (Exception e){
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        long time_elapsed = Calendar.getInstance().getTimeInMillis() - start;
+        start = 0;
+        edit.putLong("elapsed_time", stats.getLong("elapsed_time", 0) + time_elapsed);
+        edit.apply();
+        SharedPreferences stats_general = getApplicationContext().getSharedPreferences("general_stats", MODE_PRIVATE);
+        SharedPreferences.Editor edit_general = stats_general.edit();
+        edit_general.putLong("elapsed_time", stats_general.getLong("elapsed_time", 0) + time_elapsed);
+        edit_general.apply();
     }
 }
