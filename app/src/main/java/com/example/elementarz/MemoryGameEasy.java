@@ -167,8 +167,10 @@ public class MemoryGameEasy extends AppCompatActivity {
                 if (clicked == 1){
                     turnOver = true;
                     if (buttons[finalI].getText() == mainButton.getText()){
-                        MediaPlayer mediaplayer = MediaPlayer.create(MemoryGameEasy.this, R.raw.dobrze_1);
-                        mediaplayer.start();
+                        MediaPlayer mediaplayer1 = MediaPlayer.create(MemoryGameEasy.this, R.raw.dobrze_1);
+                        mediaplayer1.start();
+                        mediaplayer1 = MediaPlayer.create(MemoryGameEasy.this, R.raw.brawo_1);
+                        mediaplayer1.start();
                         edit.putInt("correct_answers", stats.getInt("correct_answers", 0) + 1);
                         edit.apply();
                         Handler handler = new Handler();
@@ -202,10 +204,12 @@ public class MemoryGameEasy extends AppCompatActivity {
                         }, 1000);
                     }
                     else {
-                        MediaPlayer mediaplayer = MediaPlayer.create(MemoryGameEasy.this, R.raw.zle_1);
+                        MediaPlayer mediaplayer1 = MediaPlayer.create(MemoryGameEasy.this, R.raw.zle_1);
+                        mediaplayer1.start();
+                        mediaplayer1 = MediaPlayer.create(MemoryGameEasy.this, R.raw.blad_1);
+                        mediaplayer1.start();
                         edit.putInt("wrong_answers", stats.getInt("wrong_answers", 0) + 1);
                         edit.apply();
-                        mediaplayer.start();
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             buttons[finalI].setBackgroundResource(R.drawable.cardback);
