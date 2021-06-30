@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LettersGameLevels extends AppCompatActivity {
 
+    public static final int GAME_AMOUNT = 6;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,33 +36,25 @@ public class LettersGameLevels extends AppCompatActivity {
             }
         });
 
-        //first level button
-        TextView textView1 = (TextView)findViewById(R.id.textView1);
-        textView1.setOnClickListener(v -> {
-            try {
-                if (level <=1) {
-                    Intent intent = new Intent(LettersGameLevels.this, LettersLevel1.class);
-                    startActivity(intent);
-                    finish();
+        //level buttons
+        TextView[] textViews = {findViewById(R.id.textView1), findViewById(R.id.textView2),
+                findViewById(R.id.textView3), findViewById(R.id.textView4),
+                findViewById(R.id.textView5), findViewById(R.id.textView6)};
+
+        for (int i = 1; i <= 6; i++){
+            int finalI = i;
+            textViews[i - 1].setOnClickListener(v -> {
+                try {
+                    if (level == finalI) {
+                        Intent intent = new Intent(LettersGameLevels.this, LettersLevel.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }catch (Exception e){
+
                 }
-            }catch (Exception e){
-
-            }
-        });
-
-        //second level button
-        TextView textView2 = (TextView)findViewById(R.id.textView2);
-        textView2.setOnClickListener(v -> {
-            try {
-                if (level <= 2) {
-                    Intent intent = new Intent(LettersGameLevels.this, LettersLevel2.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }catch (Exception e){
-
-            }
-        });
+            });
+        }
 
         final int[] x = {
                 R.id.textView1,
@@ -69,16 +63,6 @@ public class LettersGameLevels extends AppCompatActivity {
                 R.id.textView4,
                 R.id.textView5,
                 R.id.textView6,
-                R.id.textView7,
-                R.id.textView8,
-                R.id.textView9,
-                R.id.textView10,
-                R.id.textView11,
-                R.id.textView12,
-                R.id.textView13,
-                R.id.textView14,
-                R.id.textView15,
-                R.id.textView16
         };
         for (int i = 0; i < level; i++){
             TextView tv = findViewById(x[i]);
