@@ -10,7 +10,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -52,10 +51,14 @@ public class LettersLevel extends AppCompatActivity {
             R.id.point4, R.id.point5, R.id.point6, R.id.point7};
 
     private void initLetters(){
+        count = 0;
+        //choose answer
         num = random.nextInt(array.images.length);
         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel.this, sounds.sounds[num]);
         mediaplayer.start();
+        //chose correct button
         leftCorrect = random.nextBoolean();
+        //choose incorrect answer
         if (leftCorrect){
             numLeft = num;
             do {
@@ -114,7 +117,7 @@ public class LettersLevel extends AppCompatActivity {
     private void checkEnd(int newLevel){
         if (count == progress.length){
             //exit level
-            if (newLevel <= LettersGameLevels.GAME_AMOUNT){
+            if (newLevel <= LettersGameLevels.LVL_AMOUNT){
                 SharedPreferences.Editor editor = save.edit();
                 editor.putInt("Level", newLevel);
                 editor.apply();
@@ -198,13 +201,13 @@ public class LettersLevel extends AppCompatActivity {
         Window w = getWindow();
         w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //dialog window
+        //start dialog window
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.previewdialogletters);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setCancelable(false);
-        //dialog close
+        //button to close start dialog
         TextView buttonClose = (TextView)dialog.findViewById(R.id.btnclose);
         buttonClose.setOnClickListener(v -> {
             try {
@@ -217,7 +220,7 @@ public class LettersLevel extends AppCompatActivity {
             dialog.dismiss();
         });
 
-        //button continue
+        //button to start game
         Button buttonContinue = (Button)dialog.findViewById(R.id.btncontinue);
         buttonContinue.setOnClickListener(v -> {
             dialog.dismiss();
@@ -225,9 +228,7 @@ public class LettersLevel extends AppCompatActivity {
         });
         dialog.show();
 
-        //______________________________
-
-        //win dialog window
+        //winning dialog window
         dialogEnd = new Dialog(this);
         dialogEnd.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogEnd.setContentView(R.layout.previewdialogwin);
@@ -235,7 +236,7 @@ public class LettersLevel extends AppCompatActivity {
         dialogEnd.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT);
         dialogEnd.setCancelable(false);
-        //dialog close
+        //button to close game after winning
         TextView buttonCloseEnd = (TextView)dialogEnd.findViewById(R.id.btnclose);
         buttonCloseEnd.setOnClickListener(v -> {
             try {
@@ -248,11 +249,11 @@ public class LettersLevel extends AppCompatActivity {
             dialogEnd.dismiss();
         });
 
-        //button continue
+        //button to continue game on next lvl
         Button buttonContinueEnd = (Button)dialogEnd.findViewById(R.id.btncontinue);
         buttonContinueEnd.setOnClickListener(v -> {
             try {
-                if (level == LettersGameLevels.GAME_AMOUNT){
+                if (level == LettersGameLevels.LVL_AMOUNT){
                     SharedPreferences.Editor editor = save.edit();
                     editor.putInt("Level", 1);
                     editor.apply();
@@ -261,10 +262,9 @@ public class LettersLevel extends AppCompatActivity {
                     finish();
                 }
                 else{
-//                    Intent intent = new Intent(LettersLevel.this, LettersLevel.class);//todo!!
-//                    startActivity(intent);
-//                    finish();
-                    recreate();
+                    Intent intent = new Intent(LettersLevel.this, LettersLevel.class);
+                    startActivity(intent);
+                    finish();
                 }
             }catch (Exception e){
 
@@ -273,8 +273,6 @@ public class LettersLevel extends AppCompatActivity {
         });
         MediaPlayer mediaplayer = MediaPlayer.create(LettersLevel.this, R.raw.literki);
         mediaplayer.start();
-
-        //______________________________
 
         //button back
         Button buttonBack = (Button)findViewById(R.id.button_back);
@@ -309,15 +307,15 @@ public class LettersLevel extends AppCompatActivity {
 
     private void update_stats(){
         int completed = stats.getInt("completed_games", 0);
-        long completed_time_sum = stats.getLong("complete_time_sum", 0);
-        long time_elapsed = Calendar.getInstance().getTimeInMillis() - start;
+        long completeTimeSum = stats.getLong("complete_time_sum", 0);
+        long timeElapsed = Calendar.getInstance().getTimeInMillis() - start;
 
         edit.putInt("completed_games", completed + 1);
-        edit.putLong("complete_time_sum", completed_time_sum + time_elapsed);
-        if(time_elapsed < stats.getLong("best", Long.MAX_VALUE)) {
-            edit.putLong("best", time_elapsed);
+        edit.putLong("complete_time_sum", completeTimeSum + timeElapsed);
+        if(timeElapsed < stats.getLong("best", Long.MAX_VALUE)) {
+            edit.putLong("best", timeElapsed);
         }
-        edit.putLong("average", (completed_time_sum + time_elapsed)/(completed + 1));
+        edit.putLong("average", (completeTimeSum + timeElapsed)/(completed + 1));
         edit.apply();
     }
 
@@ -336,13 +334,13 @@ public class LettersLevel extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        long time_elapsed = Calendar.getInstance().getTimeInMillis() - start;
+        long timeElapsed = Calendar.getInstance().getTimeInMillis() - start;
         start = 0;
-        edit.putLong("elapsed_time", stats.getLong("elapsed_time", 0) + time_elapsed);
+        edit.putLong("elapsed_time", stats.getLong("elapsed_time", 0) + timeElapsed);
         edit.apply();
-        SharedPreferences stats_general = getApplicationContext().getSharedPreferences("general_stats", MODE_PRIVATE);
-        SharedPreferences.Editor edit_general = stats_general.edit();
-        edit_general.putLong("elapsed_time", stats_general.getLong("elapsed_time", 0) + time_elapsed);
-        edit_general.apply();
+        SharedPreferences generalStats = getApplicationContext().getSharedPreferences("general_stats", MODE_PRIVATE);
+        SharedPreferences.Editor editGeneral = generalStats.edit();
+        editGeneral.putLong("elapsed_time", generalStats.getLong("elapsed_time", 0) + timeElapsed);
+        editGeneral.apply();
     }
 }

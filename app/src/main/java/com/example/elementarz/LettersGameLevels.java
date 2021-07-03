@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LettersGameLevels extends AppCompatActivity {
 
-    public static final int GAME_AMOUNT = 6;
+    public static final int LVL_AMOUNT = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class LettersGameLevels extends AppCompatActivity {
                 }
             });
         }
-
+        //add numbers to completed levels
         final int[] x = {
                 R.id.textView1,
                 R.id.textView2,

@@ -71,7 +71,7 @@ public class NumbersGame extends AppCompatActivity {
             }
         }
 
-        //dialog window
+        //start dialog window
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.previewdialognumbers);
@@ -90,11 +90,12 @@ public class NumbersGame extends AppCompatActivity {
             dialog.dismiss();
         });
 
-        //button continue
+        //button to start game
         Button buttonContinue = (Button)dialog.findViewById(R.id.btncontinue);
         buttonContinue.setOnClickListener(v -> {
             dialog.dismiss();
         });
+        //sound only on start
         if (show){
             show = false;
             dialog.show();
@@ -102,9 +103,7 @@ public class NumbersGame extends AppCompatActivity {
             mediaplayer.start();
         }
 
-        //______________________________
-
-        //win dialog window
+        //winning dialog window
         dialogEnd = new Dialog(this);
         dialogEnd.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogEnd.setContentView(R.layout.previewdialogwin);
@@ -114,7 +113,7 @@ public class NumbersGame extends AppCompatActivity {
         dialogEnd.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT);
         dialogEnd.setCancelable(false);
-        //dialog close
+        //button to close game after winning
         TextView buttonCloseEnd = (TextView)dialogEnd.findViewById(R.id.btnclose);
         buttonCloseEnd.setOnClickListener(v -> {
             try {
@@ -127,7 +126,7 @@ public class NumbersGame extends AppCompatActivity {
             dialogEnd.dismiss();
         });
 
-        //button continue
+        //button to continue game after winning(only 1 lvl, so the same as close)
         buttonContinueEnd.setOnClickListener(v -> {
             try {
                 Intent intent_cont = new Intent(NumbersGame.this, MainActivity.class);
@@ -142,8 +141,6 @@ public class NumbersGame extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-//        MediaPlayer mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.liczby);
-//        mediaplayer.start();
         if(current == 9){
             current = 0;
             int completed = stats.getInt("completed_games", 0);
@@ -179,7 +176,6 @@ public class NumbersGame extends AppCompatActivity {
                         mediaplayer.start();
                         mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.brawo_1);
                         mediaplayer.start();
-                        //Toast.makeText(getApplicationContext(), "DOBRZE", Toast.LENGTH_SHORT).show();
                         current++;
                         edit.putInt("correct_answers", stats.getInt("correct_answers", 0) + 1);
                         edit.apply();
@@ -194,7 +190,6 @@ public class NumbersGame extends AppCompatActivity {
                         mediaplayer.start();
                         mediaplayer = MediaPlayer.create(NumbersGame.this, R.raw.blad_1);
                         mediaplayer.start();
-                        //Toast.makeText(getApplicationContext(), "ŹLE", Toast.LENGTH_SHORT).show();
                         edit.putInt("wrong_answers", stats.getInt("wrong_answers", 0) + 1);
                         edit.apply();
                         startActivity(intent);

@@ -27,15 +27,63 @@ public class MemoryGameEasy extends AppCompatActivity {
 
     Dialog dialog;
     Dialog dialogEnd;
-    int main;
+    int mainPic;
     Random random = new Random();
     int clicked = 0;
     int matched = 0;
-    boolean turnOver = false;
+    boolean turnOverForbidden = false;
 
     private SharedPreferences stats;
     private SharedPreferences.Editor edit;
     private static long start = 0;
+
+    private Integer[] images = {
+            R.drawable.dog,
+            R.drawable.duck,
+            R.drawable.elefant,
+            R.drawable.fish,
+            R.drawable.pingwin,
+            R.drawable.zebra
+    };
+    private ArrayList<Integer> mainPicOptions;
+    private Button mainButton;
+
+    private void initGame(){
+        Button[] buttons = {
+                (Button) findViewById(R.id.mem_card1),
+                (Button) findViewById(R.id.mem_card2),
+                (Button) findViewById(R.id.mem_card3),
+                (Button) findViewById(R.id.mem_card4),
+                (Button) findViewById(R.id.mem_card5),
+                (Button) findViewById(R.id.mem_card6)
+        };
+        //pic that we need to find
+        mainButton = (Button) findViewById(R.id.mem_card_main);
+        List<Integer> temp = Arrays.asList(images);
+        //pictures that haven't been found yet
+        mainPicOptions = new ArrayList<>(temp);
+        //shuffle pictures
+        Collections.shuffle(temp);
+        temp.toArray(images);
+        //set images to buttons
+        mainButton.setBackgroundResource(R.drawable.cardback);
+        for (int i = 0; i < images.length; i++){
+            buttons[i].setBackgroundResource(images[i]);
+        }
+        //handler for 5s display of pictures(player should remember the location of each)
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            mainPic = random.nextInt(mainPicOptions.size());
+            mainButton.setBackgroundResource(mainPicOptions.get(mainPic));
+            mainButton.setText(mainPicOptions.get(mainPic));
+            mainButton.setTextSize(0.0F);
+
+            for (int i = 0; i < buttons.length; i++){
+                buttons[i].setBackgroundResource(R.drawable.cardback);
+            }
+        }, 5000);
+
+    }
 
 
     @Override
@@ -51,29 +99,7 @@ public class MemoryGameEasy extends AppCompatActivity {
         Window w = getWindow();
         w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        Integer[] images = {
-                R.drawable.dog,
-                R.drawable.duck,
-                R.drawable.elefant,
-                R.drawable.fish,
-                R.drawable.pingwin,
-                R.drawable.zebra
-        };
-        Button[] buttons = {
-                (Button) findViewById(R.id.mem_card1),
-                (Button) findViewById(R.id.mem_card2),
-                (Button) findViewById(R.id.mem_card3),
-                (Button) findViewById(R.id.mem_card4),
-                (Button) findViewById(R.id.mem_card5),
-                (Button) findViewById(R.id.mem_card6)
-        };
-        Button mainButton = (Button) findViewById(R.id.mem_card_main);
-        List<Integer> temp = Arrays.asList(images);
-        ArrayList<Integer> mainOptions = new ArrayList<>(temp);
-        Collections.shuffle(temp);
-        temp.toArray(images);
-
-        //dialog window
+        //start dialog window
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.previewdialogmemory);
@@ -83,7 +109,7 @@ public class MemoryGameEasy extends AppCompatActivity {
 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setCancelable(false);
-        //dialog close
+        //button to close game from start dialog
         TextView buttonClose = (TextView)dialog.findViewById(R.id.btnclose);
         buttonClose.setOnClickListener(v -> {
             try {
@@ -95,30 +121,16 @@ public class MemoryGameEasy extends AppCompatActivity {
             }
             dialog.dismiss();
         });
-        //button continue
+        //button to continue game from start dialog
         Button buttonContinue = (Button)dialog.findViewById(R.id.btncontinue);
         buttonContinue.setOnClickListener(v -> {
             dialog.dismiss();
-            mainButton.setBackgroundResource(R.drawable.cardback);
-            for (int i = 0; i < images.length; i++){
-                buttons[i].setBackgroundResource(images[i]);
-            }
-            Handler handler = new Handler();
-            handler.postDelayed(() -> {
-                main = random.nextInt(mainOptions.size());
-                mainButton.setBackgroundResource(mainOptions.get(main));
-                mainButton.setText(mainOptions.get(main));
-                mainButton.setTextSize(0.0F);
-
-                for (int i = 0; i < images.length; i++){
-                    buttons[i].setBackgroundResource(R.drawable.cardback);
-                }
-            }, 5000);
+            //init game is here, because we want 5 sec display of pics AFTER dialog window
+            initGame();
         });
         dialog.show();
-        //______________________________
 
-        //win dialog window
+        //winning dialog window
         dialogEnd = new Dialog(this);
         dialogEnd.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogEnd.setContentView(R.layout.previewdialogwin);
@@ -128,86 +140,103 @@ public class MemoryGameEasy extends AppCompatActivity {
         dialogEnd.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT);
         dialogEnd.setCancelable(false);
-        //dialog close
+        //button to close game after winning
         TextView buttonCloseEnd = (TextView)dialogEnd.findViewById(R.id.btnclose);
         buttonCloseEnd.setOnClickListener(v -> {
             try {
-                Intent intent_close = new Intent(MemoryGameEasy.this, MainActivity.class);
-                startActivity(intent_close);
+                Intent intentClose = new Intent(MemoryGameEasy.this, MainActivity.class);
+                startActivity(intentClose);
                 finish();
             }catch (Exception e){
 
             }
             dialogEnd.dismiss();
         });
-
-        //button continue
+        //button to continue game after winning(there is only 1 lvl, so the same as close )
         buttonContinueEnd.setOnClickListener(v -> {
             try {
-                Intent intent_cont = new Intent(MemoryGameEasy.this, MainActivity.class);
-                startActivity(intent_cont);
+                Intent intentCont = new Intent(MemoryGameEasy.this, MainActivity.class);
+                startActivity(intentCont);
                 finish();
             }catch (Exception e){
 
             }
             dialogEnd.dismiss();
         });
+    }
 
-        //main logic is here
-        for (int i = 0; i < images.length; i++){
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Button[] buttons = {
+                (Button) findViewById(R.id.mem_card1),
+                (Button) findViewById(R.id.mem_card2),
+                (Button) findViewById(R.id.mem_card3),
+                (Button) findViewById(R.id.mem_card4),
+                (Button) findViewById(R.id.mem_card5),
+                (Button) findViewById(R.id.mem_card6)
+        };
+        for (int i = 0; i < buttons.length; i++){
+            //cardback+0F means that card isn't turned over
             buttons[i].setText("cardBack");
             buttons[i].setTextSize(0.0F);
             int finalI = i;
             buttons[i].setOnClickListener(v -> {
-                if (buttons[finalI].getText() == "cardBack" && !turnOver){
+                if (buttons[finalI].getText() == "cardBack" && !turnOverForbidden){
+                    //now card is turned over
                     buttons[finalI].setBackgroundResource(images[finalI]);
                     buttons[finalI].setText(images[finalI]);
                     clicked++;
                 }
                 if (clicked == 1){
-                    turnOver = true;
+                    //we can only turn over 1 card at the same time
+                    turnOverForbidden = true;
+                    //comparison of turned over card and main card
                     if (buttons[finalI].getText() == mainButton.getText()){
-                        MediaPlayer mediaplayer1 = MediaPlayer.create(MemoryGameEasy.this, R.raw.dobrze_1);
-                        mediaplayer1.start();
-                        mediaplayer1 = MediaPlayer.create(MemoryGameEasy.this, R.raw.brawo_1);
-                        mediaplayer1.start();
+                        MediaPlayer mediaPlayerGoodAnswer = MediaPlayer.create(MemoryGameEasy.this, R.raw.dobrze_1);
+                        mediaPlayerGoodAnswer.start();
+                        mediaPlayerGoodAnswer = MediaPlayer.create(MemoryGameEasy.this, R.raw.brawo_1);
+                        mediaPlayerGoodAnswer.start();
                         edit.putInt("correct_answers", stats.getInt("correct_answers", 0) + 1);
                         edit.apply();
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             buttons[finalI].setEnabled(false);
+                            //matched cards disappear
                             buttons[finalI].setVisibility(View.INVISIBLE);
-                            turnOver = false;
+                            turnOverForbidden = false;
                             clicked = 0;
                             matched++;
-                            mainOptions.remove(images[finalI]);
-
-                            if (mainOptions.isEmpty()){
+                            //main card cannot be repeated
+                            mainPicOptions.remove(images[finalI]);
+                            //all cards matched
+                            if (mainPicOptions.isEmpty()){
                                 int completed = stats.getInt("completed_games", 0);
-                                long completed_time_sum = stats.getLong("complete_time_sum", 0);
-                                long time_elapsed = Calendar.getInstance().getTimeInMillis() - start;
+                                long completeTimeSum = stats.getLong("complete_time_sum", 0);
+                                long timeElapsed = Calendar.getInstance().getTimeInMillis() - start;
 
                                 edit.putInt("completed_games", completed + 1);
-                                edit.putLong("complete_time_sum", completed_time_sum + time_elapsed);
-                                if(time_elapsed < stats.getLong("best", Long.MAX_VALUE)) {
-                                    edit.putLong("best", time_elapsed);
+                                edit.putLong("complete_time_sum", completeTimeSum + timeElapsed);
+                                if(timeElapsed < stats.getLong("best", Long.MAX_VALUE)) {
+                                    edit.putLong("best", timeElapsed);
                                 }
-                                edit.putLong("average", (completed_time_sum + time_elapsed)/(completed + 1));
+                                edit.putLong("average", (completeTimeSum + timeElapsed)/(completed + 1));
                                 edit.apply();
                                 dialogEnd.show();
                             }
                             else{
-                                main = random.nextInt(mainOptions.size());
-                                mainButton.setBackgroundResource(mainOptions.get(main));
-                                mainButton.setText(mainOptions.get(main));
+                                //choode next main card
+                                mainPic = random.nextInt(mainPicOptions.size());
+                                mainButton.setBackgroundResource(mainPicOptions.get(mainPic));
+                                mainButton.setText(mainPicOptions.get(mainPic));
                             }
                         }, 1000);
                     }
                     else {
-                        MediaPlayer mediaplayer1 = MediaPlayer.create(MemoryGameEasy.this, R.raw.zle_1);
-                        mediaplayer1.start();
-                        mediaplayer1 = MediaPlayer.create(MemoryGameEasy.this, R.raw.blad_1);
-                        mediaplayer1.start();
+                        MediaPlayer mediaPlayerWrongAnswer = MediaPlayer.create(MemoryGameEasy.this, R.raw.zle_1);
+                        mediaPlayerWrongAnswer.start();
+                        mediaPlayerWrongAnswer = MediaPlayer.create(MemoryGameEasy.this, R.raw.blad_1);
+                        mediaPlayerWrongAnswer.start();
                         edit.putInt("wrong_answers", stats.getInt("wrong_answers", 0) + 1);
                         edit.apply();
                         Handler handler = new Handler();
@@ -215,16 +244,15 @@ public class MemoryGameEasy extends AppCompatActivity {
                             buttons[finalI].setBackgroundResource(R.drawable.cardback);
                             buttons[finalI].setText("cardBack");
                             clicked = 0;
-                            turnOver = false;
+                            turnOverForbidden = false;
                         }, 1000);
                     }
                 }
                 else if (clicked == 0){
-                    turnOver = false;
+                    turnOverForbidden = false;
                 }
             });
         }
-
     }
 
     //system button back
@@ -242,13 +270,13 @@ public class MemoryGameEasy extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        long time_elapsed = Calendar.getInstance().getTimeInMillis() - start;
+        long timeElapsed = Calendar.getInstance().getTimeInMillis() - start;
         start = 0;
-        edit.putLong("elapsed_time", stats.getLong("elapsed_time", 0) + time_elapsed);
+        edit.putLong("elapsed_time", stats.getLong("elapsed_time", 0) + timeElapsed);
         edit.apply();
-        SharedPreferences stats_general = getApplicationContext().getSharedPreferences("general_stats", MODE_PRIVATE);
-        SharedPreferences.Editor edit_general = stats_general.edit();
-        edit_general.putLong("elapsed_time", stats_general.getLong("elapsed_time", 0) + time_elapsed);
-        edit_general.apply();
+        SharedPreferences generalStats = getApplicationContext().getSharedPreferences("general_stats", MODE_PRIVATE);
+        SharedPreferences.Editor editGeneral = generalStats.edit();
+        editGeneral.putLong("elapsed_time", generalStats.getLong("elapsed_time", 0) + timeElapsed);
+        editGeneral.apply();
     }
 }
